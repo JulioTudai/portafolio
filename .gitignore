@@ -1,0 +1,34 @@
+# Dependencias (Lo más importante, pesan cientos de MB)
+node_modules/
+.pnpm-store
+
+# Producción (Código generado automáticamente)
+dist/
+dist-ssr/
+build/
+
+# Archivos de entorno (SEGURIDAD: Aquí van claves privadas)
+.env
+.env.local
+.env.*.local
+
+# Logs de errores (Basura)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# Archivos del Editor (Configuraciones personales tuyas)
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos del Sistema Operativo (Basura de Mac/Windows/Linux)
+.DS_Store
+Thumbs.db
