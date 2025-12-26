@@ -1,25 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
   const [copied, setCopied] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState(null); // null, 'success', 'error'
   
+  // Tus datos personales
   const email = "MTB.juliomarquinez@hotmail.com"; 
-  const linkedinUrl = "https://www.linkedin.com/in/julio-marquinez";
+  const linkedinUrl = "https://www.linkedin.com/in/julio-marquinez/";
   const location = "Provincia de Buenos Aires, Argentina";
 
-  const handleCopyEmail = () => {
+  // CREDENCIALES DE EMAILJS (Ya configuradas)
+  const YOUR_SERVICE_ID = "service_odigwwg";
+  const YOUR_TEMPLATE_ID = "template_c4ounwo";
+  const YOUR_PUBLIC_KEY = "DVHSNDNUs6PjwZBV_";
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault(); 
     navigator.clipboard.writeText(email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsSending(true);
+    setStatus(null);
+
+    emailjs.sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, form.current, YOUR_PUBLIC_KEY)
+      .then((result) => {
+          console.log("Email enviado:", result.text);
+          setStatus('success');
+          setIsSending(false);
+          form.current.reset(); // Limpia el formulario
+          setTimeout(() => setStatus(null), 5000); // Borra el mensaje de éxito a los 5 seg
+      }, (error) => {
+          console.log("Error al enviar:", error.text);
+          setStatus('error');
+          setIsSending(false);
+      });
+  };
+
   return (
-    // Reduje el padding vertical a py-16 para que ocupe menos altura
     <section id="contact" className="py-16 bg-slate-200 dark:bg-gray-900 transition-colors duration-300">
-      {/* CAMBIO CLAVE: max-w-4xl hace que todo sea más "chico" y centrado horizontalmente */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Encabezado más compacto */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Hablemos</h2>
           <div className="mt-2 h-1 w-16 bg-emerald-600 mx-auto rounded"></div>
@@ -27,15 +54,13 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          {/* LADO IZQUIERDO: Tarjeta Compacta (Ocupa 1 columna) */}
+          {/* LADO IZQUIERDO: Tarjeta Compacta */}
           <div className="md:col-span-1 bg-emerald-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden flex flex-col items-center justify-center text-center">
-            {/* Decoración sutil */}
             <div className="absolute top-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full blur-2xl -mr-8 -mt-8"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-black opacity-10 rounded-full blur-2xl -ml-8 -mb-8"></div>
 
             <h3 className="text-lg font-bold mb-4 relative z-10">Contacto</h3>
             
-            {/* Ubicación */}
             <div className="flex flex-col items-center gap-1 mb-6 relative z-10 opacity-90">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -44,10 +69,10 @@ const Contact = () => {
                 <span className="text-xs font-medium max-w-[150px] leading-tight">{location}</span>
             </div>
 
-            {/* Iconos */}
             <div className="flex gap-4 relative z-10">
-                {/* Email */}
+                {/* Botón Copiar Email */}
                 <button 
+                    type="button" 
                     onClick={handleCopyEmail}
                     className="p-3 bg-white/20 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300 shadow-sm relative group"
                     title="Clic para copiar email"
@@ -56,13 +81,13 @@ const Contact = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                     </svg>
                     {copied && (
-                        <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-white text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded shadow whitespace-nowrap">
+                        <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-white text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded shadow whitespace-nowrap animate-bounce">
                             ¡Copiado!
                         </span>
                     )}
                 </button>
 
-                {/* LinkedIn */}
+                {/* Botón LinkedIn */}
                 <a 
                     href={linkedinUrl} 
                     target="_blank" 
@@ -76,29 +101,73 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* LADO DERECHO: Formulario (Ocupa 2 columnas) */}
-          {/* CAMBIO: bg-slate-100 en vez de bg-white para bajar el brillo */}
+          {/* LADO DERECHO: Formulario REAL */}
           <div className="md:col-span-2 bg-slate-100 dark:bg-gray-800 rounded-xl p-6 shadow-md border border-slate-200 dark:border-gray-700">
-            <form className="space-y-4">
+            <form ref={form} onSubmit={sendEmail} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Nombre</label>
-                  <input type="text" id="name" className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white text-sm" placeholder="Tu nombre"/>
+                  <label htmlFor="from_name" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Nombre</label>
+                  <input 
+                    type="text" 
+                    name="from_name" 
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white text-sm" 
+                    placeholder="Tu nombre"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Email</label>
-                  <input type="email" id="email" className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white text-sm" placeholder="tu@email.com"/>
+                  <label htmlFor="from_email" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Email</label>
+                  <input 
+                    type="email" 
+                    name="from_email" 
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white text-sm" 
+                    placeholder="tu@email.com"
+                  />
                 </div>
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Mensaje</label>
-                <textarea id="message" rows="3" className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white resize-none text-sm" placeholder="Escribe tu mensaje..."></textarea>
+                  <label htmlFor="subject" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Asunto</label>
+                  <input 
+                    type="text" 
+                    name="subject" 
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white text-sm" 
+                    placeholder="Asunto del mensaje"
+                  />
               </div>
 
-              <button type="submit" className="w-full bg-emerald-600 text-white font-medium py-2 px-6 rounded-lg hover:bg-emerald-700 transition-colors shadow-lg text-sm">
-                Enviar Mensaje
+              <div>
+                <label htmlFor="mensaje" className="block text-xs font-bold text-slate-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Mensaje</label>
+                <textarea 
+                    name="message"
+                    rows="3" 
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 outline-none transition-all dark:text-white resize-none text-sm" 
+                    placeholder="Escribe tu mensaje..."
+                ></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={isSending}
+                className={`w-full text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-lg text-sm ${isSending ? 'bg-emerald-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700'}`}
+              >
+                {isSending ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
+
+              {/* Mensajes de Estado */}
+              {status === 'success' && (
+                <p className="text-emerald-600 text-sm text-center font-medium animate-pulse mt-2">
+                  ¡Mensaje enviado con éxito! Te responderé pronto.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="text-red-500 text-sm text-center font-medium mt-2">
+                  Hubo un error al enviar. Por favor intenta más tarde.
+                </p>
+              )}
             </form>
           </div>
 

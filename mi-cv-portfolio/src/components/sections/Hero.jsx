@@ -1,5 +1,6 @@
 import React from 'react';
-// Aseguramos que la ruta de la imagen siga funcionando
+// Importamos HashLink para poder navegar a la otra página
+import { HashLink } from 'react-router-hash-link';
 import profilePic from '../../assets/FotoPerfilCv.jpeg'; 
 
 const Hero = () => {
@@ -23,15 +24,18 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a 
-              href="#contact" 
-              className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium shadow-lg hover:shadow-emerald-500/30"
+            {/* CORRECCIÓN AQUÍ: Usamos HashLink hacia /proyectos#contact */}
+            <HashLink 
+              smooth
+              to="/proyectos#contact" 
+              className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium shadow-lg hover:shadow-emerald-500/30 flex items-center justify-center"
             >
               Contactame
-            </a>
+            </HashLink>
+            
             <a 
               href="#" 
-              className="px-8 py-3 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors font-medium"
+              className="px-8 py-3 border border-slate-300 dark:border-gray-600 text-slate-700 dark:text-gray-300 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center"
             >
               Descargar CV
             </a>
@@ -47,7 +51,7 @@ const Hero = () => {
             {/* Imagen real */}
             <img 
               src={profilePic} 
-              alt="Foto de perfil" 
+              alt="Foto de perfil de Julio" 
               className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-xl"
             />
           </div>
