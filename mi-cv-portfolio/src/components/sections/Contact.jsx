@@ -26,7 +26,8 @@ const Contact = () => {
     e.preventDefault();
 
     // para evitar bots
-    if (e.target.company_honey.value) {
+    if (e.target.elements?.company_honey?.value) {
+        console.log("Bot detectado");
         return; 
     }
 
