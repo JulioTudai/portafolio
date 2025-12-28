@@ -18,7 +18,7 @@ const Footer = () => {
             
             {/* GitHub */}
             <a 
-              href="https://github.com/JulioTudai/" 
+              href="https://github.com/JulioMarquinez/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-slate-500 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400 transition-colors"
