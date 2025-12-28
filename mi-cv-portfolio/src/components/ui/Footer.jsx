@@ -1,6 +1,7 @@
 import React from 'react';
+import { SOCIAL_LINKS } from '../../data/constants';
 
- const Footer = () => {
+const Footer = () => {
   return (
     <footer className="bg-slate-200 dark:bg-gray-900 border-t border-slate-300 dark:border-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -14,7 +15,7 @@ import React from 'react';
           <div className="flex space-x-6">
             
             <a 
-              href="https://github.com/JulioMarquinez/" 
+              href={SOCIAL_LINKS.github}
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-slate-500 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400 transition-colors"
@@ -26,7 +27,7 @@ import React from 'react';
             </a>
 
             <a 
-              href="https://www.linkedin.com/in/julio-marquinez/" 
+              href={SOCIAL_LINKS.linkedin} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-slate-500 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400 transition-colors"

@@ -6,22 +6,22 @@ const Projects = () => {
       title: "E-commerce Microservicios",
       description: "Plataforma de comercio electrónico modular. Arquitectura distribuida con autenticación segura vía Tokens (JWT), orquestación con Docker y persistencia de datos con JPA.",
       tech: ["Java 21", "Spring Boot", "Docker", "JWT", "Microservicios"],
-      githubLink: "#", 
+      githubLink: null, // Oculto
       demoLink: null, 
     },
     {
       title: "Arquitectura Cloud & Costos",
       description: "Análisis y diseño de marcos de trabajo para migración a la nube. Comparativa de costos On-Premise vs Cloud y cálculos de Alta Disponibilidad.",
       tech: ["Cloud Computing", "AWS", "Cost Analysis", "DevOps"],
-      githubLink: "#",
+      githubLink: null, // Oculto
       demoLink: null,
     },
     {
       title: "Portafolio Profesional",
       description: "Plataforma personal diseñada con React y Tailwind CSS. Implementación de modo oscuro persistente, diseño responsivo y despliegue automatizado.",
       tech: ["React", "Tailwind CSS", "Vite", "UX/UI"],
-      githubLink: "#", 
-      demoLink: "/", 
+      githubLink: "https://github.com/JulioMarquinez/portafolio", // Visible (enlace a tu repo)
+      demoLink: null, 
     },
   ];
 
@@ -67,14 +67,20 @@ const Projects = () => {
                 </div>
 
                 <div className="flex gap-4 mt-auto">
-                  <a 
-                    href={project.githubLink}
-                    className="flex-1 text-center px-4 py-2 border border-slate-400 dark:border-gray-500 text-slate-700 dark:text-gray-200 rounded-lg hover:bg-slate-800 hover:text-white dark:hover:bg-gray-700 transition-colors text-sm font-medium"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    GitHub
-                  </a>
+                  
+                  {/* CONDICIONAL: Solo muestra el botón si githubLink tiene valor */}
+                  {project.githubLink && (
+                    <a 
+                      href={project.githubLink}
+                      className="flex-1 text-center px-4 py-2 border border-slate-400 dark:border-gray-500 text-slate-700 dark:text-gray-200 rounded-lg hover:bg-slate-800 hover:text-white dark:hover:bg-gray-700 transition-colors text-sm font-medium"
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      GitHub
+                    </a>
+                  )}
+
+                  {/* CONDICIONAL: Solo muestra el botón si demoLink tiene valor */}
                   {project.demoLink && (
                     <a 
                       href={project.demoLink}

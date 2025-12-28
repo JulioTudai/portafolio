@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import { SOCIAL_LINKS } from '../../data/constants';
 
 const Contact = () => {
   const form = useRef();
@@ -7,8 +8,8 @@ const Contact = () => {
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState(null);
 
-  const email = "MTB.juliomarquinez@hotmail.com"; 
-  const linkedinUrl = "https://www.linkedin.com/in/julio-marquinez/";
+  const email = SOCIAL_LINKS.email; 
+  const linkedinUrl = SOCIAL_LINKS.linkedin;
   const location = "Provincia de Buenos Aires, Argentina";
 
   const YOUR_SERVICE_ID = "service_odigwwg";
