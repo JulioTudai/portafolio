@@ -28,8 +28,6 @@ const Projects = () => {
   return (
     <section id="projects" className="py-20 bg-slate-200 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Título */}
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Mis Proyectos</h2>
           <div className="mt-2 h-1 w-20 bg-emerald-600 mx-auto rounded"></div>
@@ -38,13 +36,10 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Grid de Proyectos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            // CAMBIO AQUÍ: bg-slate-100 en lugar de bg-white
             <div key={index} className="bg-slate-100 dark:bg-gray-900 rounded-xl shadow-lg border border-slate-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
               
-              {/* Header de la tarjeta */}
               <div className="h-48 bg-emerald-50 dark:bg-gray-800 flex items-center justify-center relative group">
                 <span className="text-4xl">
                   {index === 0 ? "🛒" : index === 1 ? "☁️" : "🚀"}
@@ -52,7 +47,6 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-emerald-900 bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
               </div>
 
-              {/* Contenido */}
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                   {project.title}
@@ -61,7 +55,6 @@ const Projects = () => {
                   {project.description}
                 </p>
                 
-                {/* Tech Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech.map((tech, i) => (
                     <span 
@@ -73,7 +66,6 @@ const Projects = () => {
                   ))}
                 </div>
 
-                {/* Botones */}
                 <div className="flex gap-4 mt-auto">
                   <a 
                     href={project.githubLink}

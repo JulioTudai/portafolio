@@ -22,14 +22,11 @@ const About = () => {
   return (
     <section id="about" className="py-20 bg-slate-200 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Título de la sección */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Sobre mí</h2>
           <div className="mt-2 h-1 w-20 bg-emerald-600 mx-auto rounded"></div>
         </div>
 
-        {/* PARTE 1: Texto descriptivo */}
         <div className="max-w-4xl mx-auto text-center mb-16">
             <h3 className="text-2xl font-semibold text-slate-800 dark:text-gray-200 mb-6">
               ¿Quién soy?
@@ -43,7 +40,6 @@ const About = () => {
               mientras expando mis horizontes hacia el frontend con tecnologías modernas.
             </p>
             
-            {/* Etiquetas de estado */}
             <div className="flex justify-center gap-8 mt-8">
               <div>
                 <span className="block text-slate-500 dark:text-gray-500 text-sm mb-1">Ubicación</span>
@@ -58,17 +54,13 @@ const About = () => {
             </div>
         </div>
 
-        {/* PARTE 2: Grid de Habilidades */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
             <div 
               key={index}
-              // CAMBIO AQUÍ: bg-slate-100 en lugar de bg-white
               className="bg-slate-100 dark:bg-gray-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
             >
-              {/* Encabezado de la tarjeta */}
               <div className="flex items-center gap-3 mb-6">
-                {/* Icono con fondo blanco para resaltar sobre el gris */}
                 <span className="text-2xl bg-white dark:bg-gray-700 p-2 rounded-lg shadow-sm border border-slate-100 dark:border-gray-600">
                   {category.icon}
                 </span>
@@ -77,12 +69,10 @@ const About = () => {
                 </h4>
               </div>
 
-              {/* Lista de skills */}
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, idx) => (
                   <span 
                     key={idx}
-                    // CAMBIO AQUÍ: bg-white para las etiquetas (mejor contraste sobre slate-100)
                     className="px-3 py-1 bg-white dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-sm font-medium rounded-md border border-slate-200 dark:border-emerald-800/50 shadow-sm"
                   >
                     {skill}

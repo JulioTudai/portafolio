@@ -5,14 +5,12 @@ const Contact = () => {
   const form = useRef();
   const [copied, setCopied] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [status, setStatus] = useState(null); // null, 'success', 'error'
-  
-  // Tus datos personales
+  const [status, setStatus] = useState(null);
+
   const email = "MTB.juliomarquinez@hotmail.com"; 
   const linkedinUrl = "https://www.linkedin.com/in/julio-marquinez/";
   const location = "Provincia de Buenos Aires, Argentina";
 
-  // CREDENCIALES DE EMAILJS (Ya configuradas)
   const YOUR_SERVICE_ID = "service_odigwwg";
   const YOUR_TEMPLATE_ID = "template_c4ounwo";
   const YOUR_PUBLIC_KEY = "DVHSNDNUs6PjwZBV_";
@@ -31,13 +29,11 @@ const Contact = () => {
 
     emailjs.sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, form.current, YOUR_PUBLIC_KEY)
       .then((result) => {
-          console.log("Email enviado:", result.text);
           setStatus('success');
           setIsSending(false);
-          form.current.reset(); // Limpia el formulario
-          setTimeout(() => setStatus(null), 5000); // Borra el mensaje de éxito a los 5 seg
+          form.current.reset();
+          setTimeout(() => setStatus(null), 5000);
       }, (error) => {
-          console.log("Error al enviar:", error.text);
           setStatus('error');
           setIsSending(false);
       });
@@ -54,7 +50,6 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          {/* LADO IZQUIERDO: Tarjeta Compacta */}
           <div className="md:col-span-1 bg-emerald-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden flex flex-col items-center justify-center text-center">
             <div className="absolute top-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full blur-2xl -mr-8 -mt-8"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-black opacity-10 rounded-full blur-2xl -ml-8 -mb-8"></div>
@@ -70,7 +65,6 @@ const Contact = () => {
             </div>
 
             <div className="flex gap-4 relative z-10">
-                {/* Botón Copiar Email */}
                 <button 
                     type="button" 
                     onClick={handleCopyEmail}
@@ -87,7 +81,6 @@ const Contact = () => {
                     )}
                 </button>
 
-                {/* Botón LinkedIn */}
                 <a 
                     href={linkedinUrl} 
                     target="_blank" 
@@ -101,7 +94,6 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* LADO DERECHO: Formulario REAL */}
           <div className="md:col-span-2 bg-slate-100 dark:bg-gray-800 rounded-xl p-6 shadow-md border border-slate-200 dark:border-gray-700">
             <form ref={form} onSubmit={sendEmail} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -157,7 +149,6 @@ const Contact = () => {
                 {isSending ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
 
-              {/* Mensajes de Estado */}
               {status === 'success' && (
                 <p className="text-emerald-600 text-sm text-center font-medium animate-pulse mt-2">
                   ¡Mensaje enviado con éxito! Te responderé pronto.

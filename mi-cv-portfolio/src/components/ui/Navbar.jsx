@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Solo necesitamos useNavigate ahora
+import { useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  // LOGICA CORREGIDA:
-  // 1. Hacemos scroll suave arriba.
-  // 2. Usamos navigate con replace:true para BORRAR el hash (#) de la URL inmediatamente.
-
   const handleLogoClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate('/', { replace: true }); // <-- ESTO LIMPIA EL /#about
+    navigate('/', { replace: true });
     setIsOpen(false);
   };
 
   const handleProjectsClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate('/proyectos', { replace: true }); // <-- ESTO LIMPIA EL /#contact
+    navigate('/proyectos', { replace: true });
     setIsOpen(false);
   };
 
@@ -33,7 +29,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* LOGO */}
           <div className="flex-shrink-0 cursor-pointer" onClick={handleLogoClick}>
             <div className="font-mono text-lg md:text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
               <span className="text-emerald-600 dark:text-emerald-400">public class</span>
@@ -42,11 +37,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
           </div>
 
-          {/* MENÚ DE ESCRITORIO */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               
-              {/* Botón INICIO */}
               <button
                 onClick={handleLogoClick}
                 className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-300 dark:hover:bg-gray-800 transition-all"
@@ -54,7 +47,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 Inicio
               </button>
 
-              {/* Enlace SOBRE MÍ */}
               <HashLink
                 smooth
                 to="/#about"
@@ -64,7 +56,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 Sobre mí
               </HashLink>
 
-              {/* Botón PROYECTOS */}
               <button
                 onClick={handleProjectsClick}
                 className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-300 dark:hover:bg-gray-800 transition-all"
@@ -72,7 +63,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 Proyectos
               </button>
 
-              {/* Enlace CONTACTO */}
               <HashLink
                 smooth
                 to="/proyectos#contact"
@@ -82,7 +72,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 Contacto
               </HashLink>
               
-              {/* Botón Dark Mode */}
               <button
                 onClick={toggleDarkMode}
                 className="ml-4 p-2 rounded-lg bg-slate-300 dark:bg-gray-800 text-slate-800 dark:text-yellow-400 hover:bg-slate-400 dark:hover:bg-gray-700 transition-colors"
@@ -93,7 +82,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
           </div>
 
-          {/* MENÚ MÓVIL (Hamburguesa) */}
           <div className="md:hidden flex items-center">
              <button onClick={toggleDarkMode} className="mr-4 text-xl">
                  {darkMode ? '☀️' : '🌙'}
@@ -109,7 +97,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </div>
       </div>
 
-      {/* DESPLEGABLE MÓVIL */}
       {isOpen && (
         <div className="md:hidden bg-slate-200 dark:bg-gray-900 border-b border-slate-300 dark:border-gray-800">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

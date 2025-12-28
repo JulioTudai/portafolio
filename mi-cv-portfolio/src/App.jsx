@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-// Importamos el Router y las Rutas
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Importamos componentes base
 import Navbar from './components/ui/Navbar';
 import Footer from './components/ui/Footer';
 
-// Importamos las nuevas páginas que creamos
 import HomePage from './pages/HomePage';
 import WorkPage from './pages/WorkPage';
 
 function App() {
-  // Lógica del modo oscuro (sin cambios)
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -42,10 +38,8 @@ function App() {
         
         <main className="flex-grow">
           <Routes>
-            {/* RUTA 1: Inicio + Sobre Mí */}
             <Route path="/" element={<HomePage />} />
             
-            {/* RUTA 2: Proyectos + Contacto */}
             <Route path="/proyectos" element={<WorkPage />} />
           </Routes>
         </main>

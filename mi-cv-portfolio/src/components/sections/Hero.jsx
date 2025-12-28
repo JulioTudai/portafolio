@@ -1,14 +1,12 @@
 import React from 'react';
-// Importamos HashLink para poder navegar a la otra página
 import { HashLink } from 'react-router-hash-link';
 import profilePic from '../../assets/FotoPerfilCv.jpeg'; 
-
+ 
 const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-16 bg-gradient-to-b from-emerald-100 to-slate-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
         
-        {/* Texto de presentación */}
         <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-4">
             Hola, soy <span className="text-emerald-600 dark:text-emerald-400">Julio Marquinez</span>
@@ -24,7 +22,6 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            {/* CORRECCIÓN AQUÍ: Usamos HashLink hacia /proyectos#contact */}
             <HashLink 
               smooth
               to="/proyectos#contact" 
@@ -48,13 +45,10 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Imagen / Avatar */}
         <div className="md:w-1/2 flex justify-center">
           <div className="relative w-64 h-64 md:w-96 md:h-96">
-            {/* Círculo decorativo */}
             <div className="absolute inset-0 bg-emerald-200 dark:bg-emerald-900/30 rounded-full animate-pulse"></div>
             
-            {/* Imagen real */}
             <img 
               src={profilePic} 
               alt="Foto de perfil de Julio" 
