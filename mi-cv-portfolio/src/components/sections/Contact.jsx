@@ -24,16 +24,42 @@ const Contact = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    // para evitar bots
+    if (e.target.company_honey.value) {
+        return; 
+    }
+
+    //Limitador de tiempo
+    const lastSentTime = localStorage.getItem('lastEmailTime');
+    const COOLDOWN_TIME = 5 * 60 * 1000; // 5 minutos
+    const now = Date.now();
+
+    if (lastSentTime && (now - parseInt(lastSentTime)) < COOLDOWN_TIME) {
+        
+        const remainingMinutes = Math.ceil((COOLDOWN_TIME - (now - parseInt(lastSentTime))) / 60000);
+        
+        setStatus('rate_limit'); 
+        alert(`Por favor espera ${remainingMinutes} minutos antes de enviar otro mensaje.`); // Opcional: Alerta visual
+        return;
+    }
+
     setIsSending(true);
     setStatus(null);
 
     emailjs.sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, form.current, YOUR_PUBLIC_KEY)
       .then((result) => {
+          console.log("Email enviado:", result.text);
           setStatus('success');
           setIsSending(false);
-          form.current.reset();
-          setTimeout(() => setStatus(null), 5000);
+          
+          // se guarda la hora del envio
+          localStorage.setItem('lastEmailTime', Date.now().toString());
+
+          form.current.reset(); 
+          setTimeout(() => setStatus(null), 5000); 
       }, (error) => {
+          console.log("Error al enviar:", error.text);
           setStatus('error');
           setIsSending(false);
       });
@@ -140,6 +166,13 @@ const Contact = () => {
                     placeholder="Escribe tu mensaje..."
                 ></textarea>
               </div>
+
+              <input 
+                type="text" 
+                name="company_honey" 
+                className="hidden" 
+                autoComplete="off"
+              />
 
               <button 
                 type="submit" 
